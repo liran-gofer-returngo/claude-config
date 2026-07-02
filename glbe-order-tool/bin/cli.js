@@ -49,7 +49,7 @@ create-orders options:
   --ordered-qty <n>             ordered quantity (overrides --qty)
   --delivery-qty <n>            delivery quantity (overrides --qty)
   --country-code <code>         destination ISO country code (default DE)
-  --country <name>              billing country name for billingData.countryId (default Germany)
+  --country-name <name>         billing country name for billingData.countryId (default Germany)
   --currency <code>             currency code (default EUR)
   --with-returns                create a return (RMA) for each successful order
   --email <addr>                email for returns (default michael.belkind@returngo.ai)
@@ -109,16 +109,8 @@ async function main() {
     delayMs: Number(args['return-delay'] ?? 5000),
   };
   const maxConsecutiveFailures = Number(args['max-consecutive-failures'] ?? 50);
-  let countryCode = args['country-code'] ?? 'DE';
-  let billingCountry = 'Germany';
-  if (args.country) {
-    // Legacy: --country DE (2-letter ISO) sets destination; full name sets billing country.
-    if (/^[A-Za-z]{2}$/.test(args.country) && !args['country-code']) {
-      countryCode = args.country.toUpperCase();
-    } else {
-      billingCountry = args.country;
-    }
-  }
+  const countryCode = args['country-code'] ?? 'DE';
+  const billingCountry = args['country-name'] ?? 'Germany';
 
   // Track order vs return outcomes separately.
   const tally = { returnsOk: 0, returnsFail: 0 };

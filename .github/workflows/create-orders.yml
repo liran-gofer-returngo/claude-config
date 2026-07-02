@@ -32,7 +32,7 @@ on:
         description: Destination ISO country code (cart/shipping)
         required: false
         default: 'DE'
-      country:
+      country_name:
         description: Billing country (sets billingData.countryId in /Template)
         type: choice
         required: false
@@ -335,7 +335,7 @@ jobs:
           IN_CONCURRENCY: ${{ inputs.concurrency }}
           IN_DELAY: ${{ inputs.delay }}
           IN_COUNTRY_CODE: ${{ inputs.country_code }}
-          IN_COUNTRY: ${{ inputs.country }}
+          IN_COUNTRY_NAME: ${{ inputs.country_name }}
           IN_WITH_RETURNS: ${{ inputs.with_returns }}
         run: |
           EXTRA=""
@@ -348,7 +348,7 @@ jobs:
             --concurrency "$IN_CONCURRENCY" \
             --delay "$IN_DELAY" \
             --country-code "$IN_COUNTRY_CODE" \
-            --country "$IN_COUNTRY" \
+            --country-name "$IN_COUNTRY_NAME" \
             $EXTRA
 
       - name: Upload results

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Regenerates the billing `country` choice options in create-orders.yml
+ * Regenerates the billing `country_name` choice options in create-orders.yml
  * from glbe-order-tool/data/countries.json (single source of truth).
  *
  * Run after editing countries.json:
